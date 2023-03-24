@@ -1,9 +1,6 @@
 package com.nnapps.weatherapp.presentation
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WeatherDataDisplay(
+    title: String,
     value: Int,
     unit: String,
     icon: ImageVector,
@@ -23,10 +21,13 @@ fun WeatherDataDisplay(
     textStyle: TextStyle = TextStyle(),
     iconTint: Color = Color.White
 ) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(text = title, style = textStyle)
         Icon(
             imageVector = icon,
             contentDescription = unit,

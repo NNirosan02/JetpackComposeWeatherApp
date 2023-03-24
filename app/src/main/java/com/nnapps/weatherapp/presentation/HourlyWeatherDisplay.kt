@@ -24,7 +24,7 @@ fun HourlyWeatherDisplay(
 ) {
     val formattedTimed = remember(weatherData) {
         weatherData.time.format(
-            DateTimeFormatter.ofPattern("HH:mm")
+            DateTimeFormatter.ofPattern("K a")
         )
     }
     Column(

@@ -9,10 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.format.DateTimeFormatter
@@ -31,19 +28,29 @@ fun WeatherCard(
                 .padding(16.dp)
         ) {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Today ${
-                        data.time.format(
-                            DateTimeFormatter.ofPattern("HH:mm")
-                        )
-                    }",
-                    modifier = Modifier.align(Alignment.End), color = Color.White
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "${state.currentCity}",
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Today ${
+                            data.time.format(
+                                DateTimeFormatter.ofPattern("HH:mm")
+                            )
+                        }",
+                        color = Color.White
+                    )
+                }
                 Spacer(modifier = Modifier.height(16.dp))
                 Image(
                     painter = painterResource(id = data.weatherType.iconRes),
@@ -58,39 +65,7 @@ fun WeatherCard(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = data.weatherType.weatherDesc, fontSize = 20.sp, color = Color.White)
-                Spacer(modifier = Modifier.height(32.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherDataDisplay(
-                        value = data.pressure.toInt(),
-                        unit = "hpa",
-                        icon = ImageVector.vectorResource(
-                            id = com.nnapps.weatherapp.R.drawable.ic_pressure
-                        ),
-                        iconTint = Color.White,
-                        textStyle = TextStyle(color = Color.White)
-                    )
-                    WeatherDataDisplay(
-                        value = data.humidity.toInt(),
-                        unit = "%",
-                        icon = ImageVector.vectorResource(
-                            id = com.nnapps.weatherapp.R.drawable.ic_drop
-                        ),
-                        iconTint = Color.White,
-                        textStyle = TextStyle(color = Color.White)
-                    )
-                    WeatherDataDisplay(
-                        value = data.windSpeed.toInt(),
-                        unit = "km/h",
-                        icon = ImageVector.vectorResource(
-                            id = com.nnapps.weatherapp.R.drawable.ic_wind
-                        ),
-                        iconTint = Color.White,
-                        textStyle = TextStyle(color = Color.White)
-                    )
-                }
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
