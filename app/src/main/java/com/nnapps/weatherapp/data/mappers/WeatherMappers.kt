@@ -40,13 +40,21 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
 
 fun WeatherDto.toWeatherInfo(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
-    val now = LocalDateTime.now()
     val currentWeatherData = weatherDataMap[0]?.find {
-        val hour = if (now.minute < 30) now.hour else now.hour + 1
-        it.time.hour == hour
+        it.time.hour == currentTime()
     }
     return WeatherInfo(
         weatherDataPerDay = weatherDataMap,
         currentWeatherData = currentWeatherData
     )
+}
+
+fun currentTime(): Int {
+    val now = LocalDateTime.now()
+    val hour = when {
+        now.minute < 30 -> now.hour
+        now.hour == 23 -> 12
+        else -> now.hour + 1
+    }
+    return hour
 }
